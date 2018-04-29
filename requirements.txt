@@ -1,0 +1,6 @@
+tweepy
+nltk
+emoji
+indicoio
+flask
+flask-pymongo
