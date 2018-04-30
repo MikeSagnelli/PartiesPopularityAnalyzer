@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 from flask_pymongo import PyMongo
 from forms import SignupForm
 from models import User
@@ -31,10 +31,16 @@ def signup():
                 "email": user.email,
                 "pwd_hash": user.pwd_hash
             })
-            return 'Success!'
+
+            session['email'] = user.email
+            return redirect(url_for('home'))
     
     elif request.method == 'GET':
         return render_template('signup.html', form=form)
+
+@app.route("/home")
+def home():
+    return render_template("home.html")
 
 if __name__ == '__main__':
     app.run(debug=True) 

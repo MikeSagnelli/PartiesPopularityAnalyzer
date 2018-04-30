@@ -20,12 +20,25 @@
                     <img src="{{ url_for('static', filename='img/text-logo.png')}}">
                 </div>
                 <div class="mdl-layout-spacer"></div>
-                <nav class="mdl-navigation">
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Home</a>
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">About</a>
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Contact</a>
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Login</button>
                 </nav>
+                <nav class="mdl-navigation mdl-layout--small-screen-only">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Login</button>
+                </nav>
+                <!-- Right aligned menu below button -->
+                <button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon mdl-layout--small-screen-only">
+                    <i class="material-icons">more_vert</i>
+                </button>
+
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
+                    <li class="mdl-menu__item mdl-typography--text-uppercase">Home</li>
+                    <li class="mdl-menu__item mdl-typography--text-uppercase">About</li>
+                    <li class="mdl-menu__item mdl-typography--text-uppercase">Contact</li>
+                </ul>
             </div>
         </header>
         <main class="mdl-layout__content">
