@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_pymongo import PyMongo
-from forms import SignupForm
+from forms import SignupForm, LoginForm
 from models import User
+from werkzeug import check_password_hash
 import os
 
 app = Flask(__name__)
@@ -37,6 +38,27 @@ def signup():
     
     elif request.method == 'GET':
         return render_template('signup.html', form=form)
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+
+    if request.method == "POST":
+        if form.validate() == False:
+            return render_template("login.html", form=form)
+        else:
+            email = form.email.data
+            password = form.password.data
+
+            users = mongo.db.users
+            user = users.find_one({"email": email})
+            if user is not None and check_password_hash(user['pwd_hash'], password):
+                session['email'] = form.email.data
+                return redirect(url_for('home'))
+            else:
+                return redirect(url_for('login'))
+    elif request.method == "GET":
+        return render_template('login.html', form=form)
 
 @app.route("/home")
 def home():

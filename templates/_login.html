@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.teal-red.min.css" />
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='js/index.js') }}"></script>
     </head>
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-drawer-button">
@@ -24,10 +26,10 @@
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Home</a>
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">About</a>
                     <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Contact</a>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Login</button>
+                    <button id="login-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Login</button>
                 </nav>
                 <nav class="mdl-navigation mdl-layout--small-screen-only">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Login</button>
+                    <button id="small-login-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Login</button>
                 </nav>
                 <!-- Right aligned menu below button -->
                 <button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon mdl-layout--small-screen-only">
