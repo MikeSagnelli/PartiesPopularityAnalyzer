@@ -1,0 +1,37 @@
+{% extends "_login.html" %}
+
+{% block content %}
+<div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--8-col-desktop mdl-card mdl-shadow--2dp center-block">
+            <div class="center-block text-center">
+                <h3 class="light">Log in</h3>
+            </div>
+            <form method="POST" action="/login">
+                {{ form.hidden_tag() }}
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-tablet mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        {{ form.email(class="mdl-textfield__input")}}
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                        {{ form.email.label(class="mdl-textfield__label") }}
+                    </div>
+                    <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-tablet mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        {{ form.password(class="mdl-textfield__input")}}
+                        {% if form.password.errors %}
+                            {% for error in form.password.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                        {{ form.password.label(class="mdl-textfield__label") }}
+                    </div>
+                    <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet text-right">
+                        {{ form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
