@@ -1,3 +1,7 @@
+.body{
+    font-family:'Roboto','Helvetica','Arial',sans-serif!important;
+}
+
 .center-block{
     display: block;
     margin-left: auto !important;
@@ -29,4 +33,88 @@
     font-size: 12px !important;
     margin-top: 3px !important;
     display: block !important;
+}
+
+div.panel {
+    background-color: #FAFAFA;
+    max-height: 0;
+    overflow: hidden;
+    -webkit-transition: max-height 0.5s ease-in-out;
+    -moz-transition: max-height 0.5s ease-in-out;
+    transition: max-height 0.5s ease-in-out;
+}
+
+span.element {
+    padding-left: 16px;
+    color: rgba(0,0,0,.87);
+}
+span.subelement {
+    padding-left: 24px;
+    font-size: small;
+    color: rgba(0,0,0,.87);
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+div.mdl-js-ripple-effect {
+    position: relative;
+}
+
+a.mdl-js-ripple-effect {
+    position: relative;
+}
+
+.drawer-bg{
+    background: url(/static/img/drawer.png);
+    background-size: 100%;
+    width: 100%;
+    height: 130px;
+}
+  
+.opacity-mask{
+    width: 100%;
+    height: 130px;
+    background-color: rgba(0,0,0,.21);
+}
+
+.user-circle{
+    border-radius: 50%;
+    width: 58px;
+    height: 58px;
+    margin-left: 16px;
+    line-height: 56px;
+    font-size: 2em;
+    font-weight: 300;
+}
+
+.spacer-div{
+    height: 8px;
+}
+
+.bg--primary{
+    background-color:#009688
+}
+
+.bg--accent{
+    background-color:#ff5252
+}
+
+.white{
+    color:#fff!important
+}
+
+.drawer-divider{
+    margin:0
+}
+
+.user-info{
+    height:56px;
+    padding-left:16px;
+    padding-right:16px;
+    line-height:28px
+}
+.no-decor{
+    text-decoration:none!important;
+    color:#fff
 }
