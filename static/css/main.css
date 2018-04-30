@@ -22,3 +22,11 @@
 .medium{
     font-size: 1.5em;
 }
+
+.text-danger{
+    color: #d50000 !important;
+    position: absolute !important;
+    font-size: 12px !important;
+    margin-top: 3px !important;
+    display: block !important;
+}

@@ -11,18 +11,38 @@
                 <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         {{ form.first_name(class="mdl-textfield__input")}}
+                        {% if form.first_name.errors %}
+                            {% for error in form.first_name.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
                         {{ form.first_name.label(class="mdl-textfield__label") }}
                     </div>
                     <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--4-col-tablet mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         {{ form.last_name(class="mdl-textfield__input")}}
+                        {% if form.last_name.errors %}
+                            {% for error in form.last_name.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
                         {{ form.last_name.label(class="mdl-textfield__label") }}
                     </div>
                     <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-tablet mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         {{ form.email(class="mdl-textfield__input")}}
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
                         {{ form.email.label(class="mdl-textfield__label") }}
                     </div>
                     <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-tablet mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         {{ form.password(class="mdl-textfield__input")}}
+                        {% if form.password.errors %}
+                            {% for error in form.password.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
                         {{ form.password.label(class="mdl-textfield__label") }}
                     </div>
                     <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet text-right">
