@@ -21,7 +21,7 @@
                     </div>
                     <div class="mdl-layout-spacer"></div>
                     <div id="section-title" class="mdl-layout-title">
-                        Home
+                        {{ title }}
                     </div>
                 </div>
             </header>
@@ -45,11 +45,27 @@
                 </div>
                 <hr class="drawer-divider">
                 <nav class="mdl-navigation">
+                    <a class="no-decor" href="{{ url_for('home') }}">
+                        <div class="mdl-navigation__link mdl-js-button mdl-js-ripple-effect">
+                            <i class="material-icons">home</i>
+                            <span class="element">
+                                Home
+                            </span>
+                        </div>
+                    </a>
                     <a class="no-decor" href="">
                         <div class="mdl-navigation__link mdl-js-button mdl-js-ripple-effect">
-                            <i class="material-icons">place</i>
+                            <i class="material-icons">map</i>
                             <span class="element">
-                                Locations
+                                Map Analyzer
+                            </span>
+                        </div>
+                    </a>
+                    <a class="no-decor" href="">
+                        <div class="mdl-navigation__link mdl-js-button mdl-js-ripple-effect">
+                            <i class="material-icons">feedback</i>
+                            <span class="element">
+                                feedback
                             </span>
                         </div>
                     </a>

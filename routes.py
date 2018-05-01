@@ -83,7 +83,8 @@ def logout():
 @app.route("/home")
 def home():
     if 'email' in session:
-        return render_template("home.html")
+        title = 'Home'
+        return render_template("home.html", title=title)
     else:
         return redirect(url_for('login'))
 
