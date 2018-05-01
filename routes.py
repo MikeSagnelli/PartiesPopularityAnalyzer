@@ -14,7 +14,10 @@ app.secret_key = 'development-key'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if 'email' in session:
+        return redirect(url_for('home'))
+    else:
+        return render_template('index.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -54,11 +57,20 @@ def login():
             user = users.find_one({"email": email})
             if user is not None and check_password_hash(user['pwd_hash'], password):
                 session['email'] = form.email.data
+                session['first_name'] = user['first_name']
+                session['last_name'] = user['last_name']
                 return redirect(url_for('home'))
             else:
                 return redirect(url_for('login'))
     elif request.method == "GET":
         return render_template('login.html', form=form)
+
+@app.route("/logout")
+def logout():
+    session.pop('email', None)
+    session.pop('first_name', None)
+    session.pop('last_name', None)
+    return redirect(url_for('index'))
 
 @app.route("/home")
 def home():
