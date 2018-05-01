@@ -22,51 +22,57 @@ def index():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    form = SignupForm()
+    if 'email' not in session:
+        form = SignupForm()
 
-    if request.method == 'POST':
-        if form.validate() == False:
+        if request.method == 'POST':
+            if form.validate() == False:
+                return render_template('signup.html', form=form)
+            else:
+                users = mongo.db.users
+                user = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data)
+                users.insert({
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "email": user.email,
+                    "pwd_hash": user.pwd_hash
+                })
+
+                session['email'] = user.email
+                session['first_name'] = user.first_name
+                session['last_name'] = user.last_name
+                return redirect(url_for('home'))
+        
+        elif request.method == 'GET':
             return render_template('signup.html', form=form)
-        else:
-            users = mongo.db.users
-            user = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data)
-            users.insert({
-                "first_name": user.first_name,
-                "last_name": user.last_name,
-                "email": user.email,
-                "pwd_hash": user.pwd_hash
-            })
-
-            session['email'] = user.email
-            session['first_name'] = user.first_name
-            session['last_name'] = user.last_name
-            return redirect(url_for('home'))
-    
-    elif request.method == 'GET':
-        return render_template('signup.html', form=form)
+    else:
+        return redirect(url_for('home'))
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
-    form = LoginForm()
+    if 'email' not in session:
+        form = LoginForm()
 
-    if request.method == "POST":
-        if form.validate() == False:
-            return render_template("login.html", form=form)
-        else:
-            email = form.email.data
-            password = form.password.data
-
-            users = mongo.db.users
-            user = users.find_one({"email": email})
-            if user is not None and check_password_hash(user['pwd_hash'], password):
-                session['email'] = form.email.data
-                session['first_name'] = user['first_name']
-                session['last_name'] = user['last_name']
-                return redirect(url_for('home'))
+        if request.method == "POST":
+            if form.validate() == False:
+                return render_template("login.html", form=form)
             else:
-                return redirect(url_for('login'))
-    elif request.method == "GET":
-        return render_template('login.html', form=form)
+                email = form.email.data
+                password = form.password.data
+
+                users = mongo.db.users
+                user = users.find_one({"email": email})
+                if user is not None and check_password_hash(user['pwd_hash'], password):
+                    session['email'] = form.email.data
+                    session['first_name'] = user['first_name']
+                    session['last_name'] = user['last_name']
+                    return redirect(url_for('home'))
+                else:
+                    return redirect(url_for('login'))
+        elif request.method == "GET":
+            return render_template('login.html', form=form)
+    else:
+        return redirect(url_for('home'))
 
 @app.route("/logout")
 def logout():
@@ -77,7 +83,11 @@ def logout():
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    if 'email' in session:
+        title = 'Home'
+        return render_template("home.html", title=title)
+    else:
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True) 
