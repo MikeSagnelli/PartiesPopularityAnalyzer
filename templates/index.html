@@ -1,6 +1,6 @@
 {% extends "_login.html" %} {% block content %}
 <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
-<div class="hero-img">
+<div id="home" class="hero-img">
     <div class="hero-txt mdl-layout--large-screen-only">
         <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
@@ -29,7 +29,7 @@
     </div>
 </div>
 </div>
-<div class="mdl-grid">
+<div id="about" class="mdl-grid">
     <div class="mdl-cell mdl-cell--5-col">
         <div align="center">
             <img src="{{ url_for('static', filename='img/about-img.jpg') }}" width="60%">
@@ -49,10 +49,6 @@
             </button>
         </div>
     </div>
-    <div class="">
-
-    </div>
-
 </div>
 
 <div class="logos">
@@ -75,7 +71,7 @@
         </div>
     </div>
 </div>
-<div class="contact-form">
+<div id="contact" class="contact-form">
     <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--12-col">
             <div class="center-block text-center">
