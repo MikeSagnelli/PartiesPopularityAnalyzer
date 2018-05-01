@@ -1,14 +1,27 @@
 {% extends "_login.html" %} {% block content %}
 <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
 <div class="hero-img">
-    <div class="hero-txt">
+    <div class="hero-txt mdl-layout--large-screen-only">
         <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--12-col">
-                <h1>Take a look at what's happening in the Mexican Elections</h1>
+                <h1>Take a look at   what's happening in the Mexican Elections</h1>
                 <a href="signup"><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
                     Sign Up
                 </button></a>
-                <a href="login"></a><button class="mdl-button mdl-js-button txt-light">
+                <a href="login"><button class="mdl-button mdl-js-button txt-light">
+                    Login
+                </button></a>
+            </div>
+        </div>
+    </div>
+    <div class="small-hero-txt mdl-layout--small-screen-only">
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+                <h3>Take a look at what's happening in the Mexican Elections</h3>
+                <a href="signup"><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                    Sign Up
+                </button></a>
+                <a href="login"><button class="mdl-button mdl-js-button txt-light">
                     Login
                 </button></a>
             </div>

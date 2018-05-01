@@ -93,7 +93,7 @@ a.mdl-js-ripple-effect {
 }
 
 .bg--primary{
-    background-color:#0f0099
+    background-color:#3F51B5
 }
 
 .bg--accent{
@@ -133,14 +133,18 @@ a.mdl-js-ripple-effect {
     left: 3%;
     color: white;
 }
+.small-hero-txt{
+    text-align: left;
+    position: absolute;
+    left: 3%;
+    color: white;
+    top: 5% !important
+}
 .txt-light{
     color: #fff;
 }
 .about{
     top: 10%;
-}
-.blue{
-    background-color: #162ba3;
 }
 a{
     font-family: 'Roboto','Helvetica','Arial',sans-serif!important;
