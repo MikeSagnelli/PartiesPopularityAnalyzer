@@ -14,10 +14,11 @@ app.secret_key = 'development-key'
 
 @app.route('/')
 def index():
+    form = SignupForm()
     if 'email' in session:
         return redirect(url_for('home'))
     else:
-        return render_template('index.html')
+        return render_template('index.html', form=form)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():

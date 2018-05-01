@@ -1,5 +1,117 @@
-{% extends "_login.html" %}
+{% extends "_login.html" %} {% block content %}
+<link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+<div class="hero-img">
+    <div class="hero-txt">
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+                <h1>Take a look at what's happening in the Mexican Elections</h1>
+                <a href="signup"><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                    Sign Up
+                </button></a>
+                <a href="login"></a><button class="mdl-button mdl-js-button txt-light">
+                    Login
+                </button></a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--5-col">
+        <div align="center">
+            <img src="{{ url_for('static', filename='img/about-img.jpg') }}" width="60%">
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+        <div class="about">
+            <h3 class="light">About PPA</h3>
+            <h6>Party Popularity Analyzer is a project launched by Mexican students @ Tec de Monterrey. Our goal is to give a
+                glance to the population of Mexico and the world of how each candidate and party reflects their popularity
+                based on their tweets.</h6>
 
-{% block content %}
+            <h6>We are using the Twitter API and some technologies like Flask, Mongo and Python.</h6>
+            <br>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored blue">
+                Know more
+            </button>
+        </div>
+    </div>
+    <div class="">
+
+    </div>
+
+</div>
+
+<div class="logos">
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <div class="center-block text-center">
+                <h3 class="light">Partners</h3>
+                <h6>These are our proud partners</h6>
+            </div>
+        </div>
+        <br>
+        <div class="mdl-cell mdl-cell--4-col" align="center">
+            <img src="{{ url_for('static', filename='img/tec-de-monterrey.png') }}" width="50%">
+        </div>
+        <div class="mdl-cell mdl-cell--4-col" align="center">
+            <img src="{{ url_for('static', filename='img/twitter.png') }}" width="15%">
+        </div>
+        <div class="mdl-cell mdl-cell--4-col" align="center">
+            <img src="{{ url_for('static', filename='img/heroku.png') }}" width="50%">
+        </div>
+    </div>
+</div>
+<div class="contact-form">
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col">
+            <div class="center-block text-center">
+                <h3 class="light">Contact</h3>
+                <h6>Feel free to contact us, we'll be more than pleased to hear from you.</h6>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col-desktop mdl-card mdl-shadow--2dp center-block contact-card" align="center">
+                <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">First Name</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="sample3">
+                                <label class="mdl-textfield__label" for="sample3">Last Name</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="sample3">
+                                <label class="mdl-textfield__label" for="sample3">Email</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="sample3">
+                                <label class="mdl-textfield__label" for="sample3">Subject</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-cell--11-col">
+                                <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
+                                <label class="mdl-textfield__label" for="sample5">Message</label>
+                        </div>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                                Send Message
+                        </button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="mdl-mini-footer">
+        <div class="center-block text-center">
+        <div class="mdl-mini-footer__left-section">
+          <div class="mdl-logo footer-copy">Party Popularity Analyzer &copy; 2018.</div>
+          <ul class="mdl-mini-footer__link-list">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy & Terms</a></li>
+          </ul>
+        </div>
+        </div>
+</footer>
+
 
 {% endblock %}
