@@ -37,6 +37,8 @@ def signup():
             })
 
             session['email'] = user.email
+            session['first_name'] = user['first_name']
+            session['last_name'] = user['last_name']
             return redirect(url_for('home'))
     
     elif request.method == 'GET':
