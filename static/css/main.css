@@ -93,7 +93,7 @@ a.mdl-js-ripple-effect {
 }
 
 .bg--primary{
-    background-color:#009688
+    background-color:#3F51B5
 }
 
 .bg--accent{
@@ -117,4 +117,51 @@ a.mdl-js-ripple-effect {
 .no-decor{
     text-decoration:none!important;
     color:#fff
+}
+.hero-img{
+    background-image: url("/static/img/header-bg.jpg");
+    height: 650px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.hero-txt{
+    text-align: left;
+    position: absolute;
+    top: 25%;
+    left: 3%;
+    color: white;
+}
+.small-hero-txt{
+    text-align: left;
+    position: absolute;
+    left: 3%;
+    color: white;
+    top: 5% !important
+}
+.txt-light{
+    color: #fff;
+}
+.about{
+    top: 10%;
+}
+a{
+    font-family: 'Roboto','Helvetica','Arial',sans-serif!important;
+}
+.logos{
+    background-color: #fafafa;
+}
+input{
+    font-family: 'Roboto','Helvetica','Arial',sans-serif!important;
+}
+label{
+    font-family: 'Roboto','Helvetica','Arial',sans-serif!important;
+}
+.footer-copy{
+    font-family: 'Roboto','Helvetica','Arial',sans-serif!important;
+}
+.contact-card{
+    padding-top: 1%;
+    padding-bottom: 2%;
 }
