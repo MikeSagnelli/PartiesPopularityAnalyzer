@@ -8,4 +8,16 @@ $(document).ready(function(){
     $("#small-login-button").click(function(){
         window.location.href = "/login"
     });
+
+    $("#home-btn").click(function(){
+        window.location.href = "/"
+    });
+
+    $("#about-btn").click(function(){
+        window.location.href = "/#about"
+    });
+
+    $("#contact-btn").click(function(){
+        window.location.href = "/#contact"
+    });  
 });
