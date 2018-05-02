@@ -1,20 +1,176 @@
-{% extends "_layout.html" %}
+{% extends "_layout.html" %} {% block content %}
+<style>
+    .demo-card-wide.mdl-card {
+        width: 400px;
+        height: 310px;
+        margin: auto;
+        margin-top: 25px;
+    }
 
-{% block content %}
-    <div class="mdl-grid mdl-layout--large-screen-only">
-        <h2 class="light center-block text-center">
-            Welcome {{ session['first_name'] }}
-        </h2>
-        <h5 class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
-            Pleasure to see you here.
-        </h5>
+    #map-analyzer {
+        color: #fff;
+        height: 190px;
+        background: url('../static/img/map-analyzer.png') center / cover;
+    }
+
+    #overview {
+        color: #fff;
+        height: 190px;
+        background: url('../static/img/candidates.jpg') center / cover;
+    }
+
+    .demo-card-wide>.mdl-card__menu {
+        color: #fff;
+    }
+</style>
+<style>
+    .demo-card-event.mdl-card {
+        width: 400px;
+        height: 310px;
+        margin: auto;
+        margin-top: 25px;
+        background: #3E4EB8;
+    }
+
+    .demo-card-event>.mdl-card__actions {
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .demo-card-event>.mdl-card__title {
+        align-items: flex-start;
+    }
+
+    .demo-card-event>.mdl-card__title>h4 {
+        margin-top: 0;
+    }
+
+    .demo-card-event>.mdl-card__actions {
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+    }
+
+    .demo-card-event>.mdl-card__actions>.material-icons {
+        padding-right: 10px;
+    }
+
+    .demo-card-event>.mdl-card__title,
+    .demo-card-event>.mdl-card__actions,
+    .demo-card-event>.mdl-card__actions>.mdl-button {
+        color: #fff;
+    }
+    .dashboard{
+        margin-bottom: 180px;
+    }
+    
+</style>
+
+<div class="mdl-grid mdl-layout--large-screen-only dashboard">
+    <h2 class="light center-block text-center">
+        Welcome, {{ session['first_name'] }}
+    </h2>
+    <h5 class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
+        Pleasure to see you here.
+    </h5>
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div id="overview" class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Overview</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <label>Check which candidate is the most popular on each state based on their tweets.</label>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a href="/overview" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Take a look
+            </a>
+        </div>
     </div>
-    <div class="mdl-grid mdl-layout--small-screen-only">
-        <h5 class="light center-block text-center">
-            Welcome {{ session['first_name'] }}
-        </h5>
-        <p class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
-            Pleasure to see you here
-        </p>
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div id="map-analyzer" class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Map Analyzer</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <label>Check out the popularity of each candidate on a Mexico map.</label>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a href="/map" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Get Started
+            </a>
+        </div>
     </div>
+    <div class="demo-card-event mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-card--expand">
+            <h4>
+                Give us Feedback!
+                <br> Help us improve
+                <br> Parties Popularity Analyzer
+            </h4>
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+            <a href="/feedback" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Fill the form
+            </a>
+        </div>
+    </div>
+</div>
+<div class="mdl-grid mdl-layout--small-screen-only">
+    <h5 class="light center-block text-center">
+        Welcome, {{ session['first_name'] }}
+    </h5>
+    <p class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
+        Pleasure to see you here
+    </p>
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <div id="overview" class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Overview</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <label>Check which candidate is the most popular on each state based on their tweets.</label>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a href="/overview" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    Take a look
+                </a>
+            </div>
+        </div>
+        <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+            <div id="map-analyzer" class="mdl-card__title">
+                <h2 class="mdl-card__title-text">Map Analyzer</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <label>Check out the popularity of each candidate on a Mexico map.</label>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a href="/map" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    Get Started
+                </a>
+            </div>
+        </div>
+        <div class="demo-card-event mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title mdl-card--expand">
+                <h4>
+                    Give us Feedback!
+                    <br> Help us improve
+                    <br> Parties Popularity Analyzer
+                </h4>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a href="/feedback" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    Fill the form
+                </a>
+            </div>
+        </div>
+</div>
+
+<footer class="mdl-mini-footer">
+        <div class="center-block text-center">
+        <div class="mdl-mini-footer__left-section">
+          <div class="mdl-logo footer-copy">Party Popularity Analyzer &copy; 2018.</div>
+          <ul class="mdl-mini-footer__link-list">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">Privacy & Terms</a></li>
+          </ul>
+        </div>
+        </div>
+</footer>
 {% endblock %}
