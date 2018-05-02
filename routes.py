@@ -225,6 +225,112 @@ def map():
     else:
         return redirect(url_for('login'))
 
+@app.route("/overview")
+def overview():
+    if 'email' in session:
+        title = 'Map Overview'
+        candidates = {
+            'AMLO': 'Andrés Manuel López Obrador',
+            'Anaya': 'Ricardo Anaya Cortés',
+            'Meade': 'José Antonio Meade Kuribeña',
+            'Zavala': 'Margarita Ester Zavala Gómez del Campo',
+            'Bronco': 'Jaime Rodríguez Calderón'
+        }
+        states=['Aguascalientes',
+        'Baja California',
+        'Baja California Sur',
+        'Campeche',
+        'Chiapas',
+        'Chihuahua',
+        'Ciudad de México',
+        'Coahuila',
+        'Colima',
+        'Durango',
+        'Guanajuato',
+        'Guerrero',
+        'Hidalgo',
+        'Jalisco',
+        'México',
+        'Michoacán',
+        'Morelos',
+        'Nayarit',
+        'Nuevo León',
+        'Oaxaca',
+        'Puebla',
+        'Querétaro',
+        'Quintana Roo',
+        'San Luis Potosí',
+        'Sinaloa',
+        'Sonora',
+        'Tabasco',
+        'Tamaulipas',
+        'Tlaxcala',
+        'Veracruz',
+        'Yucatán',
+        'Zacatecas']
+        images = [
+            url_for('static', filename = 'img/amlo.jpg'),
+            url_for('static', filename = 'img/anaya.jpg'),
+            url_for('static', filename = 'img/meade.jpg'),
+            url_for('static', filename = 'img/zavala.jpg'),
+            url_for('static', filename = 'img/bronco.jpg')
+        ]
+
+        amlo = mongo.db.analyzed_tweets.find({'candidate': 'AMLO'})
+        amlo_sentiment = {}
+        for document in amlo:
+            amlo_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
+
+        anaya = mongo.db.analyzed_tweets.find({'candidate': 'Anaya'})
+        anaya_sentiment = {}
+        for document in anaya:
+            anaya_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
+        
+
+        meade = mongo.db.analyzed_tweets.find({'candidate': 'Meade'})
+        meade_sentiment = {}
+        for document in meade:
+            meade_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
+        
+
+        zavala = mongo.db.analyzed_tweets.find({'candidate': 'Zavala'})
+        zavala_sentiment = {}
+        for document in zavala:
+            zavala_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
+        
+
+        bronco = mongo.db.analyzed_tweets.find({'candidate': 'Bronco'})
+        bronco_sentiment = {}
+        for document in bronco:
+            bronco_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
+
+        analyzed = 'AMLO'
+
+        loc_winner = {}
+        loc_sentiment = {}
+        for state in states:
+            winner = 'AMLO'
+            sentiment_winner = amlo_sentiment[state]
+            if anaya_sentiment[state] > sentiment_winner:
+                sentiment_winner = anaya_sentiment[state]
+                winner = 'Anaya'
+            if meade_sentiment[state] > sentiment_winner:
+                sentiment_winner = meade_sentiment[state]
+                winner = 'Meade'
+            if zavala_sentiment[state] > sentiment_winner:
+                sentiment_winner = zavala_sentiment[state]
+                winner = 'Zavala'
+            if bronco_sentiment[state] > sentiment_winner:
+                sentiment_winner = bronco_sentiment[state]
+                winner = 'Bronco'
+
+            loc_winner[state] = winner
+            loc_sentiment[state] = sentiment_winner
+            
+        return render_template('overview.html', title=title, images=images, candidates=candidates, loc_winner=loc_winner, loc_sentiment=loc_sentiment)
+    else:
+        return redirect(url_for('login'))
+
 @app.route("/feedback")
 def feedback():
     if 'email' in session:
