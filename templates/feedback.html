@@ -2,12 +2,12 @@
 
     <div class="mdl-grid mdl-layout--large-screen-only">
         <h5 class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
-            {{ session['first_name'] }} could you please leave us your feedback?
+            {{ session['first_name'] }}, could you please leave us your feedback?
         </h5>
     </div>
     <div class="mdl-grid mdl-layout--small-screen-only">
         <p class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
-            {{ session['first_name'] }} could you please leave us your feedback?
+            {{ session['first_name'] }}, could you please leave us your feedback?
         </p>
     </div>
     <div class="mdl-grid" style="height:700px;">
@@ -25,6 +25,18 @@
             Thank you very much! <i class="material-icons">tag_faces</i>
         </p>
     </div>
+
+    <footer class="mdl-mini-footer">
+            <div class="center-block text-center">
+            <div class="mdl-mini-footer__left-section">
+              <div class="mdl-logo footer-copy">Party Popularity Analyzer &copy; 2018.</div>
+              <ul class="mdl-mini-footer__link-list">
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Privacy & Terms</a></li>
+              </ul>
+            </div>
+            </div>
+    </footer>
 
 
 {% endblock %}
