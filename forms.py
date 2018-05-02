@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, RadioField
 from wtforms.validators import DataRequired, Email, Length
@@ -21,3 +21,39 @@ class LoginForm(FlaskForm):
 class CandidatesForm(FlaskForm):
     candidates = RadioField('Candidates', choices=[('AMLO','Andrés Manuel López Obrador'), ('Anaya','Ricardo Anaya Cortés'), ('Meade', 'José Antonio Meade Kuribeña'), ('Zavala', 'Margarita Ester Zavala Gómez del Campo'), ('Bronco', 'Jaime Rodríguez Calderón'), ('Overview', 'Overview')], default='Overview')
     submit = SubmitField("Select Candidate")
+class AdminForm(FlaskForm):
+    states = RadioField('States', choices=[
+        ('Aguascalientes', 'Aguascalientes'), 
+        ('Baja California', 'Baja California'),
+        ('Baja California Sur', 'Baja California Sur'),
+        ('Campeche', 'Campeche'),
+        ('Chiapas', 'Chiapas'),
+        ('Chihuahua', 'Chihuahua'),
+        ('Ciudad de México', 'Ciudad de México'),
+        ('Coahuila', 'Coahuila'),
+        ('Colima', 'Colima'),
+        ('Durango', 'Durango'),
+        ('Guanajuato', 'Guanajuato'),
+        ('Guerrero', 'Guerrero'),
+        ('Hidalgo', 'Hidalgo'),
+        ('Jalisco', 'Jalisco'),
+        ('México', 'México'),
+        ('Michoacán', 'Michoacán'),
+        ('Morelos', 'Morelos'),
+        ('Nayarit', 'Nayarit'),
+        ('Nuevo León', 'Nuevo León'),
+        ('Oaxaca', 'Oaxaca'),
+        ('Puebla', 'Puebla'),
+        ('Querétaro', 'Querétaro'),
+        ('Quintana Roo', 'Quintana Roo'),
+        ('San Luis Potosí', 'San Luis Potosí'),
+        ('Sinaloa', 'Sinaloa'),
+        ('Sonora', 'Sonora'),
+        ('Tabasco', 'Tabasco'),
+        ('Tamaulipas', 'Tamaulipas'),
+        ('Tlaxcala', 'Tlaxcala'),
+        ('Veracruz', 'Veracruz'),
+        ('Yucatán', 'Yucatán'),
+        ('Zacatecas', 'Zacatecas'),
+        ('All', 'All States (It can take a while)')], default='All')
+    submit = SubmitField("Sentiment Analysis")
