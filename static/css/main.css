@@ -165,6 +165,55 @@ label{
     padding-top: 1%;
     padding-bottom: 2%;
 }
+.candidate-btn-amlo{
+    margin: 5px;
+    background-color: #c3311a;
+    color: #fff;
+}
+.candidate-btn-meade{
+    margin: 5px;
+    background-color: #F40000;
+    color: #fff;
+}
+.candidate-btn-anaya{
+    margin: 5px;
+    background-color: #1f62b0;
+    color: #fff;
+}
+.candidate-btn-zavala{
+    margin: 5px;
+    background-color: #9a83e5;
+    color: #fff;
+}
+.candidate-btn-bronco{
+    margin: 5px;
+    background-color: #6471d0;
+    color: #fff;
+}
+.candidate-btn-amlo:hover{
+    background-color: #9b2614;
+    color: #fff;
+}
+.candidate-btn-meade:hover{
+    background-color: rgb(194, 1, 1);
+    color: #fff;
+}
+.candidate-btn-anaya:hover{
+    background-color: #184e8d;
+    color: #fff;
+}
+.candidate-btn-zavala:hover{
+    background-color: #8470c4;
+    color: #fff;
+}
+.candidate-btn-bronco:hover{
+    background-color: #515aa3;
+    color: #fff;
+}
+
+.small-chip{
+    font-size: 10px !important;
+}
 
 .small-title {
     display: block;
@@ -183,4 +232,19 @@ label{
 
 .admin-submit-button{
     margin-top: 25px !important;
+}
+
+.gform-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+.gform-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

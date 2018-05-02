@@ -1,20 +1,20 @@
-{% extends "_layout.html" %}
+{% extends "_admin.html" %}
 
 {% block content %}
     <div class="mdl-grid mdl-layout--large-screen-only">
-        <h2 class="light center-block text-center">
-            Welcome {{ session['first_name'] }}
-        </h2>
         <h5 class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
-            Pleasure to see you here.
+            Check these results
         </h5>
     </div>
     <div class="mdl-grid mdl-layout--small-screen-only">
-        <h5 class="light center-block text-center">
-            Welcome {{ session['first_name'] }}
-        </h5>
         <p class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
-            Pleasure to see you here
+            Check these results
         </p>
     </div>
+    <div class="mdl-grid" style="height:700px;">
+        
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQv0uNWgznWRw-y_a9sWzLHz2eiKf7Ky4HveWE921KGPIVc6DKZ8pxxjREF7DlBWGrHjpJHO2v9GVc2/pubhtml?gid=1492799253&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+        
+    </div>
+    
 {% endblock %}
