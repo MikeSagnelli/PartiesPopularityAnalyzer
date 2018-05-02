@@ -1,0 +1,563 @@
+{% extends "_layout.html" %} {% block content %}
+
+<head>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #map {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+
+    <style>
+        #map {
+            width: 90%;
+            height: 600px;
+            margin: auto;
+        }
+
+        .info {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .info h4 {
+            margin: 0 0 5px;
+            color: #777;
+        }
+
+        .legend {
+            text-align: left;
+            line-height: 18px;
+            color: #555;
+        }
+
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    {% for key, value in loc_winner.iteritems() %}
+        {% if key == 'Baja California' %}
+            <span hidden id="Baja_California">{{value}}</span>
+        {% elif key == 'Baja California Sur' %}
+            <span hidden id="Baja_California_Sur">{{value}}</span>
+        {% elif key == 'Ciudad de México' %}
+            <span hidden id="Ciudad_de_Mexico">{{value}}</span>
+        {% elif key == 'Nuevo León' %}
+            <span hidden id="Nuevo_Leon">{{value}}</span>
+        {% elif key == 'Quintana Roo' %}
+            <span hidden id="Quintana_Roo">{{value}}</span>
+        {% elif key == 'San Luis Potosí' %}
+            <span hidden id="San_Luis_Potosi">{{value}}</span>
+        {% else %}
+            <span hidden id="{{key}}">{{value}}</span>
+        {% endif %}
+    {% endfor %}
+    {% for key, value in loc_sentiment.iteritems() %}
+        {% if key == 'Baja California' %}
+            <span hidden id="Baja_California_st">{{value}}</span>
+        {% elif key == 'Baja California Sur' %}
+            <span hidden id="Baja_California_Sur_st">{{value}}</span>
+        {% elif key == 'Ciudad de México' %}
+            <span hidden id="Ciudad_de_Mexico_st">{{value}}</span>
+        {% elif key == 'Nuevo León' %}
+            <span hidden id="Nuevo_Leon_st">{{value}}</span>
+        {% elif key == 'Quintana Roo' %}
+            <span hidden id="Quintana_Roo_st">{{value}}</span>
+        {% elif key == 'San Luis Potosí' %}
+            <span hidden id="San_Luis_Potosi_st">{{value}}</span>
+        {% else %}
+            <span hidden id="{{key}}_st">{{value}}</span>
+        {% endif %}
+    {% endfor %}
+    {% for key, value in candidates.iteritems() %}
+        <span hidden id="{{key}}">{{value}}</span>
+    {% endfor %}
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet center-block text-center">
+            <h4>Map overview</h4>
+            <h6>It shows which candidate has more pleasantness for each state.</h6>
+            <div id='map'></div>
+        </div>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='js/mexico.js') }}"></script>
+
+        <script type="text/javascript">
+
+            var map = L.map('map').setView([24, -102], 5);
+
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+                    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                id: 'mapbox.light'
+            }).addTo(map);
+
+
+            // control that shows state info on hover
+            var info = L.control();
+
+            info.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            
+            info.update = function (props) {
+                var name
+                (props ?
+                name = props.name: 'Hover over a state');
+                var state = "";
+                switch(name){
+                    case "Baja California":
+                        state = "Baja_California";
+                        break;
+                    case "Baja California Sur":
+                        state = "Baja_California_Sur";
+                        break;
+                    case "Ciudad de México":
+                        state = "Ciudad_de_Mexico";
+                        break;
+                    case "Nuevo León":
+                        state = "Nuevo_Leon";
+                        break;
+                    case "Quintana Roo":
+                        state = "Quintana_Roo";
+                        break;
+                    case "San Luis Potosí":
+                        state = "San_Luis_Potosi";
+                        break;
+                    default:
+                        state = name;
+                        break;
+                }
+
+                this._div.innerHTML = "<h4>The candidate with the highest perecentage of positive tweets</h4>" + (props ?
+                    '<b>' + props.name + '</b><br />' + $("#"+$("#"+state).html().trim()).html().trim() + ' with ' + $("#"+state + "_st").html().trim() + '%'
+                    : 'Hover over a state');
+            };
+
+            info.addTo(map);
+
+            function getColor(d) {
+                return d == 'AMLO' ? '#B4242E' :
+                        d == 'Anaya' ? '#01308F' :
+                            d == 'Meade' ? '#078B42' :
+                                d == 'Zavala' ? '#E28832' :
+                                    d == 'Bronco' ? '#7C1A50' :
+                                        '#FFEDA0';
+            }
+
+            function style(feature) {
+                
+                if(feature.properties.name == 'Baja California'){
+                    return {
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7,
+                        fillColor: getColor($("#Baja_California").html())
+                    };
+                }
+                else if(feature.properties.name == 'Baja California Sur'){
+                    return {
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7,
+                        fillColor: getColor($("#Baja_California_Sur").html())
+                    };
+                }
+                else if(feature.properties.name == 'Ciudad de México'){
+                    return {
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7,
+                        fillColor: getColor($("#Ciudad_de_Mexico").html())
+                    };
+                }
+                else if(feature.properties.name == 'Nuevo León'){
+                    return {
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7,
+                        fillColor: getColor($("#Nuevo_Leon").html())
+                    };
+                }
+                else if(feature.properties.name == 'Quintana Roo'){
+                    return {
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7,
+                        fillColor: getColor($("#Quintana_Roo").html())
+                    };
+                }
+                else if(feature.properties.name == 'San Luis Potosí'){
+                    return {
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7,
+                        fillColor: getColor($("#San_Luis_Potosi").html())
+                    };
+                }
+                else{
+                    switch (String(feature.properties.name)){
+                        case 'Aguascalientes':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Campeche':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Chiapas':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Chihuahua':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Coahuila':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Colima':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Durango':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Guanajuato':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Guerrero':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Hidalgo':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Jalisco':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'México':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Michoacán':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Morelos':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Nayarit':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Oaxaca':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Puebla':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Querétaro':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Sinaloa':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Sonora':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Tabasco':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Tamaulipas':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Tlaxcala':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Veracruz':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Yucatán':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                            case 'Zacatecas':
+                            return {
+                                weight: 2,
+                                opacity: 1,
+                                color: 'white',
+                                dashArray: '3',
+                                fillOpacity: 0.7,
+                                fillColor: getColor($("#"+feature.properties.name).html())
+                            };
+                            break;
+                    }
+                }
+            }
+
+            function highlightFeature(e) {
+                var layer = e.target;
+
+                layer.setStyle({
+                    weight: 5,
+                    color: '#666',
+                    dashArray: '',
+                    fillOpacity: 0.7
+                });
+
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
+
+                info.update(layer.feature.properties);
+            }
+
+            var geojson;
+
+            function resetHighlight(e) {
+                geojson.resetStyle(e.target);
+                info.update();
+            }
+
+            function zoomToFeature(e) {
+                map.fitBounds(e.target.getBounds());
+            }
+
+            function onEachFeature(feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+                    click: zoomToFeature
+                });
+            }
+
+            geojson = L.geoJson(statesData, {
+                style: style,
+                onEachFeature: onEachFeature
+            }).addTo(map);
+
+
+            var legend = L.control({ position: 'bottomright' });
+
+            legend.onAdd = function (map) {
+
+                var div = L.DomUtil.create('div', 'info legend'),
+                    grades = ['AMLO', 'Anaya', 'Meade', 'Zavala', 'Bronco'],
+                    labels = [],
+                    to;
+
+                for (var i = 0; i < grades.length; i++) {
+                    to = grades[i];
+
+                    labels.push(
+                        '<i style="background:' + getColor(to) + '"></i> ' +to)
+                }
+
+                div.innerHTML = labels.join('<br><br>');
+                return div;
+            };
+
+            legend.addTo(map);
+
+        </script>
+    </div>
+</body>
+{% endblock %}
