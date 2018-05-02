@@ -7,9 +7,6 @@ from models import User
 from utils import TwitterAPI, SentimentAnalyzer, Queries
 from werkzeug import check_password_hash
 import os
-import sys  
-reload(sys)  
-sys.setdefaultencoding('utf8')
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
