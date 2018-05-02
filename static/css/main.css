@@ -165,3 +165,22 @@ label{
     padding-top: 1%;
     padding-bottom: 2%;
 }
+
+.small-title {
+    display: block;
+    position: relative;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: .02em;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+
+.radio-element{
+    margin-top: 10px !important;
+}
+
+.admin-submit-button{
+    margin-top: 25px !important;
+}

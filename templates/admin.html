@@ -1,0 +1,34 @@
+{% extends "_admin.html" %}
+
+{% block content %}
+    <div class="mdl-grid mdl-layout--large-screen-only">
+        <h2 class="light center-block text-center">
+            Welcome {{ session['first_name'] }}
+        </h2>
+        <h5 class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
+                Please choose which state do you want to analyze.
+        </h5>
+    </div>
+    <div class="mdl-grid mdl-layout--small-screen-only">
+        <h5 class="light center-block text-center">
+            Welcome {{ session['first_name'] }}
+        </h5>
+        <p class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
+            Please choose which state do you want to analyze.
+        </p>
+    </div>
+        <form id="admin-form" method="POST" action="/admin" class="center-block text-center">
+            {{ form.hidden_tag() }}
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--4-col-tablet">
+                {% for subfield in form.states %}
+                    <label class="mdl-cell mdl-cell--3-col-desktop mdl-cell--4-col-tablet mdl-radio mdl-js-radio mdl-js-ripple-effect radio-element">
+                        {{ subfield(class="mdl-radio__button") }}
+                        {{ subfield.label(class="mdl-radio__label") }}
+                    </label>
+                {% endfor %}
+            </div>
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8-col-tablet text-center admin-submit-button">
+                {{ form.submit(class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent") }}
+            </div>
+        </form>
+{% endblock %}
