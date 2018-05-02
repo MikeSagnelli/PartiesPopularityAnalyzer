@@ -19,8 +19,9 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Sign in")
 
 class CandidatesForm(FlaskForm):
-    candidates = RadioField('Candidates', choices=[('AMLO','Andrés Manuel López Obrador'), ('Anaya','Ricardo Anaya Cortés'), ('Meade', 'José Antonio Meade Kuribeña'), ('Zavala', 'Margarita Ester Zavala Gómez del Campo'), ('Bronco', 'Jaime Rodríguez Calderón'), ('Overview', 'Overview')], default='Overview')
+    candidates = RadioField('Candidates', choices=[('AMLO','Andrés Manuel López Obrador'), ('Anaya','Ricardo Anaya Cortés'), ('Meade', 'José Antonio Meade Kuribeña'), ('Zavala', 'Margarita Ester Zavala Gómez del Campo'), ('Bronco', 'Jaime Rodríguez Calderón')], default='AMLO')
     submit = SubmitField("Select Candidate")
+
 class AdminForm(FlaskForm):
     states = RadioField('States', choices=[
         ('Aguascalientes', 'Aguascalientes'), 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import division
 from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_pymongo import PyMongo
@@ -6,6 +7,9 @@ from models import User
 from utils import TwitterAPI, SentimentAnalyzer, Queries
 from werkzeug import check_password_hash
 import os
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
@@ -163,7 +167,7 @@ def admin():
                         average = 0
                     mongo.db.analyzed_tweets.insert({
                         "candidate": candidate,
-                        "state": form.states.data,
+                        "state": document['state'],
                         "sentiment": average
                     })
             return redirect(url_for('admin'))
@@ -171,34 +175,76 @@ def admin():
     elif 'role' in session and session['role'] == 'user':
         return redirect(url_for('home'))
     else:
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     
 
 @app.route("/home")
 def home():
-    if 'email' in session:
-        title = 'Home'
-        return render_template("home.html", title=title)
+    if 'role' in session and session['role'] == 'admin':
+        return redirect(url_for('admin'))
     else:
-        return redirect(url_for('login'))
+        if 'email' in session:
+            title = 'Home'
+            return render_template("home.html", title=title)
+        else:
+            return redirect(url_for('login'))
 
 @app.route("/map", methods=['GET', 'POST'])
 def map():
-    images = [
-        url_for('static', filename = 'img/amlo.jpg'),
-        url_for('static', filename = 'img/anaya.jpg'),
-        url_for('static', filename = 'img/meade.jpg'),
-        url_for('static', filename = 'img/zavala.jpg'),
-        url_for('static', filename = 'img/bronco.jpg'),
-        url_for('static', filename = 'img/overview.png')
-    ]
-    form = CandidatesForm()
-    if request.method == "GET":
+    if 'email' in session:
         title = 'Map Analyzer'
-        return render_template('map.html', form=form, title=title, images=images)
-    elif request.method == "POST":
-        
-        return render_template('map.html', form=form, title=title, images=images)
+        candidates = {
+            'AMLO': 'Andrés Manuel López Obrador',
+            'Anaya': 'Ricardo Anaya Cortés',
+            'Meade': 'José Antonio Meade Kuribeña',
+            'Zavala': 'Margarita Ester Zavala Gómez del Campo',
+            'Bronco': 'Jaime Rodríguez Calderón'
+        }
+        images = [
+            url_for('static', filename = 'img/amlo.jpg'),
+            url_for('static', filename = 'img/anaya.jpg'),
+            url_for('static', filename = 'img/meade.jpg'),
+            url_for('static', filename = 'img/zavala.jpg'),
+            url_for('static', filename = 'img/bronco.jpg')
+        ]
+        form = CandidatesForm()
+        if request.method == "GET":
+            analyzed = 'AMLO'
+            cursor = mongo.db.analyzed_tweets.find({'candidate': analyzed})
+            loc_sentiment = {}
+            for document in cursor:
+                loc_sentiment[document['state']] = document['sentiment'] * 100
+            return render_template('map.html', form=form, title=title, images=images, analyzed=analyzed, candidate_name=candidates[analyzed], loc_sentiment=loc_sentiment)
+        elif request.method == "POST":
+            analyzed = form.candidates.data
+            cursor = mongo.db.analyzed_tweets.find({'candidate': analyzed})
+            loc_sentiment = {}
+            for document in cursor:
+                loc_sentiment[document['state']] = document['sentiment'] * 100
+            return render_template('map.html', form=form, title=title, images=images, analyzed=analyzed, candidate_name=candidates[analyzed], loc_sentiment=loc_sentiment)
+    else:
+        return redirect(url_for('login'))
+
+@app.route("/feedback")
+def feedback():
+    if 'email' in session:
+        title = 'Feedback'
+        return render_template('feedback.html', title=title)
+    else:
+        return redirect(url_for('login'))
+
+@app.route("/responses")
+def responses():
+    if 'role' in session and session['role'] == 'admin':
+        title = 'Responses'
+        return render_template('responses.html', title=title)
+    else:
+        if 'email' in session:
+            title = 'Home'
+            return render_template("home.html", title=title)
+        else:
+            return redirect(url_for('login'))
+
 
 @app.route('/favicon.ico')
 def favicon():
