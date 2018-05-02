@@ -34,12 +34,39 @@ def signup():
                     "first_name": user.first_name,
                     "last_name": user.last_name,
                     "email": user.email,
-                    "pwd_hash": user.pwd_hash
+                    "pwd_hash": user.pwd_hash,
+                    "role": "user"
                 })
 
                 session['email'] = user.email
                 session['first_name'] = user.first_name
                 session['last_name'] = user.last_name
+                session['role'] = "user"
+                return redirect(url_for('home'))
+        
+        elif request.method == 'GET':
+            return render_template('signup.html', form=form)
+    else:
+        return redirect(url_for('home'))
+
+@app.route('/createAdmin', methods=['GET', 'POST'])
+def create_admin():
+    if 'email' in session and 'role' in session and session['role'] == 'admin':
+        form = SignupForm()
+
+        if request.method == 'POST':
+            if form.validate() == False:
+                return render_template('signup.html', form=form)
+            else:
+                users = mongo.db.users
+                user = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data)
+                users.insert({
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "email": user.email,
+                    "pwd_hash": user.pwd_hash,
+                    "role": 'admin'
+                })
                 return redirect(url_for('home'))
         
         elif request.method == 'GET':
@@ -65,6 +92,7 @@ def login():
                     session['email'] = form.email.data
                     session['first_name'] = user['first_name']
                     session['last_name'] = user['last_name']
+                    session['role'] = user['role']
                     return redirect(url_for('home'))
                 else:
                     return redirect(url_for('login'))
