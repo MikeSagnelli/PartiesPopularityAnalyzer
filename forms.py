@@ -4,7 +4,6 @@ from wtforms import StringField, PasswordField, SubmitField, RadioField
 from wtforms.validators import DataRequired, Email, Length
 import sys  
 
-reload(sys)  
 sys.setdefaultencoding('utf8')
 
 class SignupForm(FlaskForm):
