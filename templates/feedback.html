@@ -1,0 +1,30 @@
+{% extends "_layout.html" %} {% block content %}
+
+    <div class="mdl-grid mdl-layout--large-screen-only">
+        <h5 class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
+            {{ session['first_name'] }} could you please leave us your feedback?
+        </h5>
+    </div>
+    <div class="mdl-grid mdl-layout--small-screen-only">
+        <p class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
+            {{ session['first_name'] }} could you please leave us your feedback?
+        </p>
+    </div>
+    <div class="mdl-grid" style="height:700px;">
+        
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZVwvTChWSSVO6auC4VdEuWdMLWgRMSUqJ9OdiNqhgJ3Erxw/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+        
+    </div>
+    <div class="mdl-grid mdl-layout--large-screen-only">
+        <h5 class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
+                Thank you very much!<i class="material-icons">tag_faces</i>
+        </h5>
+    </div>
+    <div class="mdl-grid mdl-layout--small-screen-only">
+        <p class="mdl-cell mdl-cell--12-col-desktop mdl-cell--8col-tablet light center-block text-center">
+            Thank you very much! <i class="material-icons">tag_faces</i>
+        </p>
+    </div>
+
+
+{% endblock %}
