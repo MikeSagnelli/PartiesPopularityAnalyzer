@@ -1,6 +1,7 @@
+# coding=utf-8
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_pymongo import PyMongo
-from forms import SignupForm, LoginForm
+from forms import SignupForm, LoginForm, CandidatesForm
 from models import User
 from werkzeug import check_password_hash
 import os
@@ -87,6 +88,25 @@ def home():
         return render_template("home.html", title=title)
     else:
         return redirect(url_for('login'))
+
+@app.route("/map", methods=['GET', 'POST'])
+def map():
+    images = [
+        url_for('static', filename = 'img/amlo.jpg'),
+        url_for('static', filename = 'img/anaya.jpg'),
+        url_for('static', filename = 'img/meade.jpg'),
+        url_for('static', filename = 'img/zavala.jpg'),
+        url_for('static', filename = 'img/bronco.jpg'),
+        url_for('static', filename = 'img/overview.png')
+    ]
+    form = CandidatesForm()
+    if request.method == "GET":
+        title = 'Map Analyzer'
+        return render_template('map.html', form=form, title=title, images=images)
+    elif request.method == "POST":
+        
+        return render_template('map.html', form=form, title=title, images=images)
+
 
 if __name__ == '__main__':
     app.run(debug=True) 
