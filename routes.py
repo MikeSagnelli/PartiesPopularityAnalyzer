@@ -1,5 +1,5 @@
 from __future__ import division
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, send_from_directory
 from flask_pymongo import PyMongo
 from forms import SignupForm, LoginForm, AdminForm
 from models import User
