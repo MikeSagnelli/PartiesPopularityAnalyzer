@@ -276,32 +276,30 @@ def overview():
         amlo = mongo.db.analyzed_tweets.find({'candidate': 'AMLO'})
         amlo_sentiment = {}
         for document in amlo:
-            amlo_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
+            amlo_sentiment[document['state']] = document['sentiment'] * 100
 
         anaya = mongo.db.analyzed_tweets.find({'candidate': 'Anaya'})
         anaya_sentiment = {}
         for document in anaya:
-            anaya_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
+            anaya_sentiment[document['state']] = document['sentiment'] * 100
         
 
         meade = mongo.db.analyzed_tweets.find({'candidate': 'Meade'})
         meade_sentiment = {}
         for document in meade:
-            meade_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
+            meade_sentiment[document['state']] = document['sentiment'] * 100
         
 
         zavala = mongo.db.analyzed_tweets.find({'candidate': 'Zavala'})
         zavala_sentiment = {}
         for document in zavala:
-            zavala_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
+            zavala_sentiment[document['state']] = document['sentiment'] * 100
         
 
         bronco = mongo.db.analyzed_tweets.find({'candidate': 'Bronco'})
         bronco_sentiment = {}
         for document in bronco:
-            bronco_sentiment[document['state'].encode('utf-8')] = document['sentiment'] * 100
-
-        analyzed = 'AMLO'
+            bronco_sentiment[document['state']] = document['sentiment'] * 100
 
         loc_winner = {}
         loc_sentiment = {}
