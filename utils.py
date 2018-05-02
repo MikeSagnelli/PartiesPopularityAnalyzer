@@ -3,10 +3,6 @@ from __future__ import unicode_literals
 import indicoio
 import tweepy
 import os
-import sys  
-
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 LANGUAGE = "es"
 TWEET_BUFFER_SIZE = 10
