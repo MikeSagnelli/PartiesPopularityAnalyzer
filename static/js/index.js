@@ -8,4 +8,12 @@ $(document).ready(function(){
     $("#small-login-button").click(function(){
         window.location.href = "/login"
     });
+
+    $( window ).unload(function() {
+        window.location.href("/logout");
+    });
+    
+    window.onbeforeunload = function(){
+        window.location.href("/logout");
+    };
 });
