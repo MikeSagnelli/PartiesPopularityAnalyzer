@@ -20,6 +20,10 @@ Without using the Makefile you have to ``sudo pip install`` all the dependencies
 
 That's it for running the project. Otherwise, simply go to [heroku](https://parties-popularity-analyzer.herokuapp.com/)
 
+## How to use Parties Popularity Analyzer
+
+To use the project it is needed to create an account, and log in to it. Then, the dashboard will be shown, in which three options are shown: Map Analyzer, in which it is possible to analyze the popularity of each candidate per state; Map Overview, in which it is shown which candidate is the most popular per state; and Feedback, in which it is provided a Google form to provide feedback on the importance of the information. There is also a hamburguer menu to travel across each of the functionalities more easily.
+
 ## Technologies
 
 ![MongoDB](http://solucionesit.ldtsynergy.com/-/Srvs015/MongoDB/file/view/mongodb.png/547250106/315x368/mongodb.png)

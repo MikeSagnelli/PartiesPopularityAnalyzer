@@ -52,7 +52,7 @@
 </head>
 
 <body>
-    {% for key, value in loc_sentiment.iteritems() %}
+    {% for key, value in loc_sentiment.items() %}
         {% if key == 'Baja California' %}
             <span hidden id="Baja_California">{{value}}</span>
         {% elif key == 'Baja California Sur' %}
