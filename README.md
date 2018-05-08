@@ -23,7 +23,7 @@ That's it for running the project. Otherwise, simply go to [heroku link](https:/
 ## Technologies
 
 ![MongoDB](http://solucionesit.ldtsynergy.com/-/Srvs015/MongoDB/file/view/mongodb.png/547250106/315x368/mongodb.png)
-![Flask](https://cdn-images-1.medium.com/max/1600/1*Ou6FFJJD3zhcIUU8wBZqIw.png =100x)
+![Flask](https://cdn-images-1.medium.com/max/1600/1*Ou6FFJJD3zhcIUU8wBZqIw.png)
 ![Jinja2](https://quintagroup.com/cms/python/images/jinja2.png/image_preview)
 ![Heroku](http://kennmyers.github.io/assets/heroku_guide/heroku_logo.png)
 ![MLab](https://mlab.com/company/brand/img/downloads/mLab-logo-onlight.png)
