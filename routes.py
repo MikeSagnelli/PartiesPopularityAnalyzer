@@ -165,11 +165,23 @@ def admin():
                         average = accum / count
                     except ZeroDivisionError:
                         average = 0
-                    mongo.db.analyzed_tweets.insert({
-                        "candidate": candidate,
-                        "state": document['state'],
-                        "sentiment": average
-                    })
+
+                    if mongo.db.analyzed_tweets.find_one({"candidate": candidate, "state": document['state']}) is not None:
+                        mongo.db.analyzed_tweets.update(
+                            {"candidate": candidate, "state": document['state']},
+                            {
+                                "candidate": candidate,
+                                "state": document['state'],
+                                "sentiment": average
+                            },
+                            True
+                        )
+                    else:
+                        mongo.db.analyzed_tweets.insert({
+                            "candidate": candidate,
+                            "state": document['state'],
+                            "sentiment": average
+                        })
             return redirect(url_for('admin'))
 
     elif 'role' in session and session['role'] == 'user':
