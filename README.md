@@ -18,7 +18,7 @@ If all was correct, then the console will keep running, and if localhost:5000 is
 
 Without using the Makefile you have to ``sudo pip install`` all the dependencies in the requirements.txt file, export the environment variables, and run ``python routes.py``.
 
-That's it for running the project. Otherwise, simply go to [heroku link](https://parties-popularity-analyzer.herokuapp.com/)
+That's it for running the project. Otherwise, simply go to [heroku](https://parties-popularity-analyzer.herokuapp.com/)
 
 ## Technologies
 
